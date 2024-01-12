@@ -14,6 +14,7 @@ numpy = "^1.26"
 torch = { url = "https://download.pytorch.org/whl/cu121/torch-2.1.2%2Bcu121-cp311-cp311-win_amd64.whl" }
 torchvision = { url = "https://download.pytorch.org/whl/cu121/torchvision-0.16.2%2Bcu121-cp311-cp311-win_amd64.whl" }
 torchaudio = { url = "https://download.pytorch.org/whl/cu121/torchaudio-2.1.2%2Bcu121-cp311-cp311-win_amd64.whl" }
+ipykernel = "^6.28"
 
 
 [tool.poetry.dev-dependencies]
