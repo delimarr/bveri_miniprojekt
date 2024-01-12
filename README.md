@@ -1,6 +1,6 @@
 # setup
 - install python 3.11
-- py -m venv bveri
+- `py -m venv bveri`
 - `.\bveri\Scripts\activate`
 - `python -m install pip --upgrade pip`
 - `pip install poetry`
