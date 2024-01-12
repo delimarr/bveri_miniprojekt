@@ -1,4 +1,4 @@
-# setup
+# setup (windows)
 - install python 3.11
 - `py -m venv bveri`
 - `.\bveri\Scripts\activate`
