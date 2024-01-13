@@ -72,3 +72,31 @@ class Decoder(nn.Module):
         for layer in self.layers_:
             x = layer(x)
         return x
+    
+class VGGEncoder(nn.Module):
+    def __init__(self, features):
+        super(VGGEncoder, self).__init__()
+        self.features = features
+
+    def forward(self, x):
+        outputs = []
+        for layer in self.features:
+            x = layer(x)
+            if isinstance(layer, nn.MaxPool2d):
+                outputs.append(x)
+        return outputs
+
+    def make_layers(cfg, batch_norm=False):
+        layers = []
+        in_channels = 3
+        for v in cfg:
+            if v == 'M':
+                layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
+            else:
+                conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1)
+                if batch_norm:
+                    layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU(inplace=True)]
+                else:
+                    layers += [conv2d, nn.ReLU(inplace=True)]
+                in_channels = v
+        return nn.Sequential(*layers)
