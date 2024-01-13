@@ -5,13 +5,12 @@ class EncoderDecoder(nn.Module):
     """ Encoder-Decoder """
     def __init__(self, encoder, decoder, num_initial_channels, num_input_channels, num_output_channels):
         super().__init__()
-        self.input = nn.Conv2d(3, num_initial_channels, kernel_size=(3, 3), stride=1, padding=1)
+        self.input = nn.Conv2d(3, num_initial_channels, kernel_size=(3, 3), stride=1, padding=1, device='cuda')
         self.encoder = encoder
         self.decoder = decoder
-        self.output = nn.Conv2d(num_input_channels,  num_output_channels, kernel_size=(1, 1), stride=1, padding=0)
+        self.output = nn.Conv2d(num_input_channels,  num_output_channels, kernel_size=(1, 1), stride=1, padding=0, device='cuda')
 
     def forward(self, x):
-        x = x.float()
         x = self.input(x)
         x = self.encoder(x)
         x = self.decoder(x)
@@ -23,8 +22,9 @@ class EncoderBlock(nn.Module):
         super().__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
-        self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=(3, 3), stride=1, padding=1)
-        self.conv2 = nn.Conv2d(in_channels, out_channels, kernel_size=(3, 3), stride=2, padding=1)
+        self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=(3, 3), stride=1, padding=1, device='cuda')
+        self.conv2 = nn.Conv2d(in_channels, out_channels, kernel_size=(3, 3), stride=2, padding=1, device='cuda')
+
 
     def forward(self, x):
         x = self.conv(x)
@@ -38,9 +38,9 @@ class DecoderBlock(nn.Module):
         super().__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
-        self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=(3, 3), stride=1, padding=1)
+        self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=(3, 3), stride=1, padding=1, device='cuda')
         # Transposed Convolution Layer
-        self.conv2 = nn.ConvTranspose2d(in_channels, out_channels, kernel_size=(3, 3), stride=2, output_padding=1, padding=1)
+        self.conv2 = nn.ConvTranspose2d(in_channels, out_channels, kernel_size=(3, 3), stride=2, output_padding=1, padding=1, device='cuda')
 
     def forward(self, x):
         x = self.conv(x)
