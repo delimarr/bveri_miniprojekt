@@ -1,4 +1,4 @@
-from torch import float as t_float, Tensor, empty, flatten
+from torch import float as t_float, Tensor, empty, flatten, stack
 from torchvision import transforms
 
 from underwater_imagery.data.constants import SHAPE, CLASSES
@@ -20,11 +20,10 @@ resize_normalize_transf = transforms.Compose(
     ]
 )
 
-def pred_to_label(pred: Tensor) -> Tensor:
-    _, h, w = pred.shape
-    pred_label = empty((3, h, w))
-    for y in range(h):
-        for x in range(w):
-            rgb = flatten(CLASSES[pred[0][y][x]][1])
-            pred_label[:, y, x] = rgb
-    return pred_label
+def pred_to_label(pred: Tensor, device: str = 'cuda') -> Tensor:
+    colors = stack([color[1].flatten() for color in CLASSES])
+    colors = colors.to(device)
+    pred_label = colors[pred]
+    pred_label = pred_label.squeeze(1)
+    pred_label = pred_label.permute(0, 3, 1, 2)
+    return pred_label * 255
