@@ -5,6 +5,8 @@ from torch.nn import functional as F
 
 
 class RSB(nn.Module):
+    """RSB with skip connections."""
+
     def __init__(
         self,
         kernel_size: int,

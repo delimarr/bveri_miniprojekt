@@ -6,7 +6,7 @@ authors = [
     "delimarr <robin.delimar@students.fhnw.ch>",
     "Krabbe  <lukas.krebs@students.fhnw.ch>",
 ]
-readme = "README.md"
+readme = "../README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -32,6 +32,7 @@ isort = "^5.13"
 black = "^23.12"
 pytest = "^7.4"
 pydocstyle = "^6.3"
+pycln = "^2.4"
 
 
 [build-system]

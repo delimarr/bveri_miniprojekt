@@ -16,6 +16,15 @@ class UIMDataset(Dataset):
         transf: Callable,
         transf_labels: Callable,
     ) -> None:
+        """Load labeled images from the SUIM-Dataset and create masks.
+
+        Args:
+            root_path (Path): path containing the folders: images, masks
+            classes (List[Tuple[str, Tensor]]): key, rgb value
+            image_size (Tuple[int, int]): shape, all images will be resized to it
+            transf (Callable): transformation from PIL Image to Tensor
+            transf_labels (Callable): transformation from PIL Image_Labels to Tensor
+        """
         self.root_path = root_path
         self.classes = classes
         self.image_size = image_size

@@ -6,6 +6,7 @@ SHAPE = (240, 320)
 # SHAPE = (480, 640)
 
 TRAIN_PATH = Path("./data/train_val/")
+TEST_PATH = Path("./data/TEST/")
 
 CLASSES = [
     ("BW", tensor([0, 0, 0], dtype=uint8).view(3, 1, 1)),

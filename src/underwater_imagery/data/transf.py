@@ -1,7 +1,9 @@
-from torch import float as t_float, Tensor, empty, flatten, stack
+from torch import Tensor, empty, flatten
+from torch import float as t_float
+from torch import stack
 from torchvision import transforms
 
-from underwater_imagery.data.constants import SHAPE, CLASSES
+from underwater_imagery.data.constants import CLASSES, SHAPE
 
 resize_transf = transforms.Compose(
     [
@@ -20,7 +22,8 @@ resize_normalize_transf = transforms.Compose(
     ]
 )
 
-def pred_to_label(pred: Tensor, device: str = 'cuda') -> Tensor:
+
+def pred_to_label(pred: Tensor, device: str = "cuda") -> Tensor:
     colors = stack([color[1].flatten() for color in CLASSES])
     colors = colors.to(device)
     pred_label = colors[pred]
